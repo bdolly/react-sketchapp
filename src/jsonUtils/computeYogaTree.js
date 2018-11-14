@@ -6,6 +6,7 @@ import Context from '../utils/Context';
 import zIndex from '../utils/zIndex';
 
 const walkTree = (tree: TreeNode, context: Context) => {
+  debug('3. computeYogaTree:walkTree');
   const { node, stop } = computeYogaNode(tree, context);
 
   if (tree.type === 'svg') {

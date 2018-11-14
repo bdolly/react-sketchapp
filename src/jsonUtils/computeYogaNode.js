@@ -28,6 +28,7 @@ const computeYogaNode = (
   node: TreeNode,
   context: Context,
 ): { node: yoga.Yoga$Node, stop?: boolean } => {
+  debug('3.1 computeYogaTree:computeYogaNode');
   const yogaNode = yoga.Node.create();
   const hasStyle = node.props && node.props.style;
   const style: ViewStyle | Object = hasStyle ? getStyles(node) : {};

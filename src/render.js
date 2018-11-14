@@ -26,6 +26,7 @@ export const renderToJSON = (element: React$Element<any>): SJLayer => {
 };
 
 export const renderLayers = (layers: Array<any>, container: SketchLayer): SketchLayer => {
+  debug('9.3 render:renderLayers ' + layers.length);
   if (container.addLayers === undefined) {
     throw new Error(`
      React SketchApp cannot render into this layer. You may be trying to render into a layer
@@ -45,13 +46,16 @@ const getDefaultPage = (): SketchLayer => {
 };
 
 const renderContents = (tree: TreeNode, container: SketchLayer): SketchLayer => {
+  debug('9. render:renderContents');
   const json = flexToSketchJSON(tree);
+  debug('9.2 render:@skpm/sketchapp-json-plugin: fromSJSONDictionary');
   const layer = fromSJSONDictionary(json, '99');
 
   return renderLayers([layer], container);
 };
 
 const renderPage = (tree: TreeNode, page: SketchPage): Array<SketchLayer> => {
+  debug('8. render:renderPage');
   const children = tree.children || [];
 
   // assume if name is set on this nested page, the intent is to overwrite
@@ -64,6 +68,7 @@ const renderPage = (tree: TreeNode, page: SketchPage): Array<SketchLayer> => {
 };
 
 const renderDocument = (tree: TreeNode, documentData: SketchDocumentData): Array<SketchLayer> => {
+  debug('7. render:renderDocument');
   if (!isNativeDocument(documentData)) {
     throw new Error('Cannot render a Document into a child of Document');
   }
@@ -83,6 +88,7 @@ const renderDocument = (tree: TreeNode, documentData: SketchDocumentData): Array
 };
 
 const renderTree = (tree: TreeNode, _container?: SketchLayer): SketchLayer | Array<SketchLayer> => {
+  debug('6. render:renderTree');
   if (isNativeDocument(_container) && tree.type !== 'document') {
     throw new Error('You need to render a Document into Document');
   }
@@ -109,6 +115,7 @@ export const render = (
   container?: SketchLayer | WrappedSketchLayer,
 ): SketchLayer | Array<SketchLayer> => {
   let nativeContainer: SketchLayer | void;
+  debug('1. render:render()');
   if (container && container.sketchObject) {
     nativeContainer = container.sketchObject;
   } else if (container) {

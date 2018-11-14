@@ -11,6 +11,7 @@ import { INHERITABLE_FONT_STYLES } from './utils/constants';
 import zIndex from './utils/zIndex';
 
 export const reactTreeToFlexTree = (node: TreeNode, yogaNode: yoga.Yoga$Node, context: Context) => {
+  debug('5. buildTree:reactTreeToFlexTree');
   let textNodes;
   let textStyle = context.getInheritedStyles();
   const style = node.props && node.props.style ? node.props.style : {};
@@ -77,6 +78,7 @@ export const reactTreeToFlexTree = (node: TreeNode, yogaNode: yoga.Yoga$Node, co
 };
 
 const buildTree = (element: React$Element<any>): TreeNode => {
+  debug('2. buildTree:buildTree()');
   const renderer = TestRenderer.create(element);
   const json: TreeNode = renderer.toJSON();
   const yogaNode = computeYogaTree(json, new Context());
