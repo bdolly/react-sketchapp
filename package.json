@@ -43,12 +43,15 @@
     "@skpm/sketchapp-json-plugin": "^0.2.0",
     "airbnb-prop-types": "^2.10.0",
     "error-stack-parser": "^2.0.0",
+    "fs": "^0.0.1-security",
     "invariant": "^2.2.2",
+    "lodash": "^4.17.11",
     "murmur2js": "^1.0.0",
     "normalize-css-color": "^1.0.1",
     "pegjs": "^0.10.0",
     "prop-types": "^15.5.8",
     "sketch-constants": "^1.0.2",
+    "walk": "^2.3.14",
     "yoga-layout": "^1.9.3"
   },
   "peerDependencies": {

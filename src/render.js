@@ -134,7 +134,7 @@ export const render = (
 
   try {
     const tree = buildTree(element);
-
+    
     injectSymbols(getDocumentDataFromContainer(nativeContainer));
 
     return renderTree(tree, nativeContainer);

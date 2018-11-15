@@ -12,8 +12,13 @@ import View from './components/View';
 import Text from './components/Text';
 import TextStyles from './sharedStyles/TextStyles';
 import { makeSymbol, getSymbolComponentByName, injectSymbols } from './symbol';
-const DEBUG = false;
+
+const DEBUG = true;
+const LOG = false;
+
 global.debug = x => (DEBUG ? log(x) : null);
+global.logJSON = obj => (LOG ? log(JSON.stringify(obj, null, 2)) : null);
+global.print = x => (LOG ? log(x) : null);
 
 module.exports = {
   render,

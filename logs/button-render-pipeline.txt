@@ -1,0 +1,116 @@
+2. buildTree:buildTree()
+3. computeYogaTree:walkTree
+3.1 computeYogaTree:computeYogaNode
+3. computeYogaTree:walkTree
+3.1 computeYogaTree:computeYogaNode
+3. computeYogaTree:walkTree
+3.1 computeYogaTree:computeYogaNode
+4. computeTextTree
+5. buildTree:reactTreeToFlexTree
+5. buildTree:reactTreeToFlexTree
+5. buildTree:reactTreeToFlexTree
+4. computeTextTree
+9.1 flexToSketchJSON
+9.1.1 flexToSketchJSON render node type with "renderers[node.type]"
+9.1 flexToSketchJSON
+9.1.1 flexToSketchJSON render node type with "renderers[node.type]"
+9.1 flexToSketchJSON
+9.1.1 flexToSketchJSON render node type with "renderers[node.type]"
+
+...repeats/loops 
+then 
+
+1. render:render()
+2. buildTree:buildTree()
+console> Warning: Each child in an array or iterator should have a unique "key" prop.%s%s See https://fb.me/react-warning-keys for more information.%s
+console>
+
+Check the top-level render call using <Document>.
+console>
+console>
+    in Page
+3. computeYogaTree:walkTree
+3.1 computeYogaTree:computeYogaNode
+3. computeYogaTree:walkTree
+3.1 computeYogaTree:computeYogaNode
+3. computeYogaTree:walkTree
+3.1 computeYogaTree:computeYogaNode
+3. computeYogaTree:walkTree
+3.1 computeYogaTree:computeYogaNode
+3. computeYogaTree:walkTree
+3.1 computeYogaTree:computeYogaNode
+4. computeTextTree
+5. buildTree:reactTreeToFlexTree
+5. buildTree:reactTreeToFlexTree
+5. buildTree:reactTreeToFlexTree
+5. buildTree:reactTreeToFlexTree
+5. buildTree:reactTreeToFlexTree
+4. computeTextTree
+9.3 render:renderLayers 13
+6. render:renderTree
+console> TypeError: documentData.pages is not a function. (In 'documentData.pages()', 'documentData.pages' is undefined)
+2. buildTree:buildTree()
+3. computeYogaTree:walkTree
+3.1 computeYogaTree:computeYogaNode
+3. computeYogaTree:walkTree
+3.1 computeYogaTree:computeYogaNode
+4. computeTextTree
+3. computeYogaTree:walkTree
+3.1 computeYogaTree:computeYogaNode
+3. computeYogaTree:walkTree
+3.1 computeYogaTree:computeYogaNode
+4. computeTextTree
+3. computeYogaTree:walkTree
+3.1 computeYogaTree:computeYogaNode
+4. computeTextTree
+3. computeYogaTree:walkTree
+3.1 computeYogaTree:computeYogaNode
+4. computeTextTree
+3. computeYogaTree:walkTree
+3.1 computeYogaTree:computeYogaNode
+4. computeTextTree
+3. computeYogaTree:walkTree
+3.1 computeYogaTree:computeYogaNode
+4. computeTextTree
+3. computeYogaTree:walkTree
+3.1 computeYogaTree:computeYogaNode
+4. computeTextTree
+5. buildTree:reactTreeToFlexTree
+5. buildTree:reactTreeToFlexTree
+4. computeTextTree
+5. buildTree:reactTreeToFlexTree
+5. buildTree:reactTreeToFlexTree
+4. computeTextTree
+5. buildTree:reactTreeToFlexTree
+4. computeTextTree
+5. buildTree:reactTreeToFlexTree
+4. computeTextTree
+5. buildTree:reactTreeToFlexTree
+4. computeTextTree
+5. buildTree:reactTreeToFlexTree
+4. computeTextTree
+5. buildTree:reactTreeToFlexTree
+4. computeTextTree
+9. render:renderContents
+9.1 flexToSketchJSON
+9.1.1 flexToSketchJSON render node type with "renderers[node.type]"
+9.1 flexToSketchJSON
+9.1.1 flexToSketchJSON render node type with "renderers[node.type]"
+9.1 flexToSketchJSON
+9.1.1 flexToSketchJSON render node type with "renderers[node.type]"
+9.1 flexToSketchJSON
+9.1.1 flexToSketchJSON render node type with "renderers[node.type]"
+9.1 flexToSketchJSON
+9.1.1 flexToSketchJSON render node type with "renderers[node.type]"
+9.1 flexToSketchJSON
+9.1.1 flexToSketchJSON render node type with "renderers[node.type]"
+9.1 flexToSketchJSON
+9.1.1 flexToSketchJSON render node type with "renderers[node.type]"
+9.1 flexToSketchJSON
+9.1.1 flexToSketchJSON render node type with "renderers[node.type]"
+9.1 flexToSketchJSON
+9.1.1 flexToSketchJSON render node type with "renderers[node.type]"
+9.2 render:@skpm/sketchapp-json-plugin: fromSJSONDictionary
+9.3 render:renderLayers 1
+
+

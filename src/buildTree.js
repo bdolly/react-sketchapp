@@ -81,7 +81,9 @@ const buildTree = (element: React$Element<any>): TreeNode => {
   debug('2. buildTree:buildTree()');
   const renderer = TestRenderer.create(element);
   const json: TreeNode = renderer.toJSON();
+
   const yogaNode = computeYogaTree(json, new Context());
+
   yogaNode.calculateLayout(undefined, undefined, yoga.DIRECTION_LTR);
   const tree = reactTreeToFlexTree(json, yogaNode, new Context());
 
