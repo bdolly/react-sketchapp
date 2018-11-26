@@ -113,6 +113,7 @@ const renderTree = (tree: TreeNode, _container?: SketchLayer): SketchLayer | Arr
 export const render = (
   element: React$Element<any>,
   container?: SketchLayer | WrappedSketchLayer,
+  globalStylesheet: any = {},
 ): SketchLayer | Array<SketchLayer> => {
   let nativeContainer: SketchLayer | void;
   debug('1. render:render()');
@@ -133,7 +134,7 @@ export const render = (
   }
 
   try {
-    const tree = buildTree(element);
+    const tree = buildTree(element, globalStylesheet);
 
     injectSymbols(getDocumentDataFromContainer(nativeContainer));
 

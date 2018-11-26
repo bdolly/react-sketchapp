@@ -4,10 +4,6 @@
 // sorted by sketch renderers
 const htmlTagsMap = {
     BLACKLIST: [
-        'document',
-        'doc',
-        'body',
-        'head',
         'header',
         'noscript',
         'html',
@@ -131,4 +127,5 @@ const htmlTagsMap = {
     ],
     svg: ['svg'],
 };
+
 export default htmlTagsMap;

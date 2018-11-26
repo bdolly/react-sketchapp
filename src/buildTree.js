@@ -9,10 +9,7 @@ import computeYogaTree from './jsonUtils/computeYogaTree';
 import computeTextTree from './jsonUtils/computeTextTree';
 import { INHERITABLE_FONT_STYLES } from './utils/constants';
 import zIndex from './utils/zIndex';
-import htmlTagsMap from './utils/htmlTagsMap';
-import { find } from 'lodash';
-
-var traverse = require('traverse');
+import { ReactTreeToStyledSketchTree } from './reactTreeToStyledSketchTree';
 
 export const reactTreeToFlexTree = (node: TreeNode, yogaNode: yoga.Yoga$Node, context: Context) => {
   debug('5. buildTree:reactTreeToFlexTree');
@@ -81,65 +78,14 @@ export const reactTreeToFlexTree = (node: TreeNode, yogaNode: yoga.Yoga$Node, co
   };
 };
 
-const getSketchComponentType = node => {
-  // push all tags to a list of json objects
-  // [{html: <DOM_node_tag_name>, sketchComponent: <sketch_component>}, ...]
-
-  let tags = [];
-  for (let sketchComponent in htmlTagsMap) {
-    tags.push(...htmlTagsMap[sketchComponent].map(tag => ({ html: tag, sketchComponent })));
-  }
-  // TODO: add htmlTagsMap blacklist error here
-  const tag = find(tags, { html: node.type });
-
-  return tag || null;
-};
-
-let convertHTMLInnerTextToSketchNode = tree => {
-  let reactTree = traverse(tree).forEach(function(node) {
-    let isTextNode = node && node.type == 'text';
-    let nodeHasInnerTextChildren =
-      node && node.children && node.children.length && !node.children[0].type;
-    if (!isTextNode && nodeHasInnerTextChildren) {
-      let style = node.props.style ? pick(node.props.style, INHERITABLE_FONT_STYLES) : {};
-      this.update(
-        {
-          ...node,
-          children: [
-            {
-              type: 'text',
-              props: { style },
-              children: [node.children[0]],
-            },
-          ],
-        },
-        true,
-      );
-    }
-  });
-};
-
-const convertTreeToSketchComponents = tree => {
-  let reactTree = traverse(tree).forEach(function(node) {
-    const isNode = node && node.type;
-    if (isNode) {
-      let sType = getSketchComponentType(node);
-      if (sType && sType.sketchComponent != 'BLACKLIST') {
-        // TODO: lookup and add component and children styles
-        this.update({ ...node, type: sType.sketchComponent });
-      }
-    }
-  });
-  return reactTree;
-};
-
-const buildTree = (element: React$Element<any>): TreeNode => {
+const buildTree = (element: React$Element<any>, globalStyles: any = {}): TreeNode => {
   debug('2. buildTree:buildTree()');
 
   const renderer = TestRenderer.create(element);
   const json: TreeNode = renderer.toJSON();
-  const treeWithTextNodes = convertHTMLInnerTextToSketchNode(json);
-  convertTreeToSketchComponents(json);
+
+  ReactTreeToStyledSketchTree(json, globalStyles);
+
   const yogaNode = computeYogaTree(json, new Context());
 
   yogaNode.calculateLayout(undefined, undefined, yoga.DIRECTION_LTR);

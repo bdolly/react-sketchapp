@@ -50,6 +50,7 @@
     "normalize-css-color": "^1.0.1",
     "pegjs": "^0.10.0",
     "prop-types": "^15.5.8",
+    "react-dom": "^16.6.3",
     "sketch-constants": "^1.0.2",
     "traverse": "^0.6.6",
     "yoga-layout": "^1.9.3"
