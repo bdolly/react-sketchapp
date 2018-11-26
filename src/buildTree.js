@@ -95,31 +95,28 @@ const getSketchComponentType = node => {
   return tag || null;
 };
 
-const convertHTMLInnerText = tree => {
-  // logJSON(tree);
+let convertHTMLInnerTextToSketchNode = tree => {
   let reactTree = traverse(tree).forEach(function(node) {
-    let nodeHasChildren = node.children && node.children.length;
-    // convert HTML innerText elements to skteh <Text> component representation
-    if (node && node.type !== 'text') {
-      if (nodeHasChildren) {
-        let style = node.props.style ? pick(node.props.style, INHERITABLE_FONT_STYLES) : {};
-        this.update(
-          {
-            ...node,
-            children: [
-              {
-                type: 'text',
-                props: { style },
-                children: [node.children[0]],
-              },
-            ],
-          },
-          true,
-        );
-      }
+    let isTextNode = node && node.type == 'text';
+    let nodeHasInnerTextChildren =
+      node && node.children && node.children.length && !node.children[0].type;
+    if (!isTextNode && nodeHasInnerTextChildren) {
+      let style = node.props.style ? pick(node.props.style, INHERITABLE_FONT_STYLES) : {};
+      this.update(
+        {
+          ...node,
+          children: [
+            {
+              type: 'text',
+              props: { style },
+              children: [node.children[0]],
+            },
+          ],
+        },
+        true,
+      );
     }
   });
-  return reactTree;
 };
 
 const convertTreeToSketchComponents = tree => {
@@ -133,7 +130,6 @@ const convertTreeToSketchComponents = tree => {
       }
     }
   });
-  logJSON(reactTree);
   return reactTree;
 };
 
@@ -142,8 +138,8 @@ const buildTree = (element: React$Element<any>): TreeNode => {
 
   const renderer = TestRenderer.create(element);
   const json: TreeNode = renderer.toJSON();
-  const treeWithTextNodes = convertHTMLInnerText(json);
-  convertTreeToSketchComponents(treeWithTextNodes);
+  const treeWithTextNodes = convertHTMLInnerTextToSketchNode(json);
+  convertTreeToSketchComponents(json);
   const yogaNode = computeYogaTree(json, new Context());
 
   yogaNode.calculateLayout(undefined, undefined, yoga.DIRECTION_LTR);
