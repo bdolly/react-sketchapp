@@ -13,8 +13,9 @@ import Text from './components/Text';
 import TextStyles from './sharedStyles/TextStyles';
 import { makeSymbol, getSymbolComponentByName, injectSymbols } from './symbol';
 
-const DEBUG = true;
-const LOG = false;
+const DEBUG = false;
+const LOG = true;
+global.CUSTOM_SKETCH_RENDERERS = true;
 
 global.debug = x => (DEBUG ? log(x) : null);
 global.logJSON = obj => (LOG ? log(JSON.stringify(obj, null, 2)) : null);

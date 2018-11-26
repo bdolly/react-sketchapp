@@ -9,6 +9,7 @@ import computeYogaTree from './jsonUtils/computeYogaTree';
 import computeTextTree from './jsonUtils/computeTextTree';
 import { INHERITABLE_FONT_STYLES } from './utils/constants';
 import zIndex from './utils/zIndex';
+var traverse = require('traverse');
 
 export const reactTreeToFlexTree = (node: TreeNode, yogaNode: yoga.Yoga$Node, context: Context) => {
   debug('5. buildTree:reactTreeToFlexTree');
@@ -16,7 +17,7 @@ export const reactTreeToFlexTree = (node: TreeNode, yogaNode: yoga.Yoga$Node, co
   let textStyle = context.getInheritedStyles();
   const style = node.props && node.props.style ? node.props.style : {};
   const type = node.type || 'text';
-
+  debug(`5. buildTree:reactTreeToFlexTree - node.type = ${node.type}`);
   let newChildren = [];
 
   if (type === 'svg') {
@@ -77,11 +78,34 @@ export const reactTreeToFlexTree = (node: TreeNode, yogaNode: yoga.Yoga$Node, co
   };
 };
 
+const walkReactTree = tree => {
+  // logJSON(tree);
+  let reactTree = traverse(tree).forEach(function(node) {
+    if (node && node.children && !node.children[0].type) {
+      this.update(
+        {
+          ...node,
+          children: [
+            {
+              type: 'text',
+              props: { style: { ...pick(node.props.style, INHERITABLE_FONT_STYLES) } },
+              children: [node.children[0]],
+            },
+          ],
+        },
+        true,
+      );
+    }
+  });
+  logJSON(reactTree);
+};
+
 const buildTree = (element: React$Element<any>): TreeNode => {
   debug('2. buildTree:buildTree()');
+
   const renderer = TestRenderer.create(element);
   const json: TreeNode = renderer.toJSON();
-
+  walkReactTree(json);
   const yogaNode = computeYogaTree(json, new Context());
 
   yogaNode.calculateLayout(undefined, undefined, yoga.DIRECTION_LTR);

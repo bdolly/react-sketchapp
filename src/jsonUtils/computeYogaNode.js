@@ -33,6 +33,8 @@ const computeYogaNode = (
   const hasStyle = node.props && node.props.style;
   const style: ViewStyle | Object = hasStyle ? getStyles(node) : {};
 
+  debug(`3.1 computeYogaTree:computeYogaNode - node.type = ${node.type} `);
+
   // Setup default symbol instance dimensions
   if (node.type === 'symbolinstance') {
     const symbolProps = node.props;
