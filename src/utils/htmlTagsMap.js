@@ -24,6 +24,7 @@ const htmlTagsMap = {
         'base',
         'embed',
         'meta',
+        'page',
     ],
     artboard: ['document', 'doc', 'body', 'head', 'header', 'html'],
     image: ['figure', 'img', 'picture', 'img'],

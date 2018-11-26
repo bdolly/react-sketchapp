@@ -15,7 +15,7 @@ import { makeSymbol, getSymbolComponentByName, injectSymbols } from './symbol';
 
 const DEBUG = false;
 const LOG = true;
-global.CUSTOM_SKETCH_RENDERERS = true;
+global.CUSTOM_SKETCH_RENDERERS = false;
 
 global.debug = x => (DEBUG ? log(x) : null);
 global.logJSON = obj => (LOG ? log(JSON.stringify(obj, null, 2)) : null);

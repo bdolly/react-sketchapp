@@ -9,6 +9,9 @@ import computeYogaTree from './jsonUtils/computeYogaTree';
 import computeTextTree from './jsonUtils/computeTextTree';
 import { INHERITABLE_FONT_STYLES } from './utils/constants';
 import zIndex from './utils/zIndex';
+import htmlTagsMap from './utils/htmlTagsMap';
+import { find } from 'lodash';
+
 var traverse = require('traverse');
 
 export const reactTreeToFlexTree = (node: TreeNode, yogaNode: yoga.Yoga$Node, context: Context) => {
@@ -78,26 +81,60 @@ export const reactTreeToFlexTree = (node: TreeNode, yogaNode: yoga.Yoga$Node, co
   };
 };
 
-const walkReactTree = tree => {
+const getSketchComponentType = node => {
+  // push all tags to a list of json objects
+  // [{html: <DOM_node_tag_name>, sketchComponent: <sketch_component>}, ...]
+
+  let tags = [];
+  for (let sketchComponent in htmlTagsMap) {
+    tags.push(...htmlTagsMap[sketchComponent].map(tag => ({ html: tag, sketchComponent })));
+  }
+  // TODO: add htmlTagsMap blacklist error here
+  const tag = find(tags, { html: node.type });
+
+  return tag || null;
+};
+
+const convertHTMLInnerText = tree => {
   // logJSON(tree);
   let reactTree = traverse(tree).forEach(function(node) {
-    if (node && node.children && !node.children[0].type) {
-      this.update(
-        {
-          ...node,
-          children: [
-            {
-              type: 'text',
-              props: { style: { ...pick(node.props.style, INHERITABLE_FONT_STYLES) } },
-              children: [node.children[0]],
-            },
-          ],
-        },
-        true,
-      );
+    let nodeHasChildren = node.children && node.children.length;
+    // convert HTML innerText elements to skteh <Text> component representation
+    if (node && node.type !== 'text') {
+      if (nodeHasChildren) {
+        let style = node.props.style ? pick(node.props.style, INHERITABLE_FONT_STYLES) : {};
+        this.update(
+          {
+            ...node,
+            children: [
+              {
+                type: 'text',
+                props: { style },
+                children: [node.children[0]],
+              },
+            ],
+          },
+          true,
+        );
+      }
+    }
+  });
+  return reactTree;
+};
+
+const convertTreeToSketchComponents = tree => {
+  let reactTree = traverse(tree).forEach(function(node) {
+    const isNode = node && node.type;
+    if (isNode) {
+      let sType = getSketchComponentType(node);
+      if (sType && sType.sketchComponent != 'BLACKLIST') {
+        // TODO: lookup and add component and children styles
+        this.update({ ...node, type: sType.sketchComponent });
+      }
     }
   });
   logJSON(reactTree);
+  return reactTree;
 };
 
 const buildTree = (element: React$Element<any>): TreeNode => {
@@ -105,7 +142,8 @@ const buildTree = (element: React$Element<any>): TreeNode => {
 
   const renderer = TestRenderer.create(element);
   const json: TreeNode = renderer.toJSON();
-  walkReactTree(json);
+  const treeWithTextNodes = convertHTMLInnerText(json);
+  convertTreeToSketchComponents(treeWithTextNodes);
   const yogaNode = computeYogaTree(json, new Context());
 
   yogaNode.calculateLayout(undefined, undefined, yoga.DIRECTION_LTR);
