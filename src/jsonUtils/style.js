@@ -49,22 +49,22 @@ export const makeShadow = (style: ViewStyle | TextStyle): SJShadow => {
     style.shadowOpacity !== undefined
       ? style.shadowOpacity
       : style.textShadowOpacity !== undefined
-        ? style.textShadowOpacity
-        : 1;
+      ? style.textShadowOpacity
+      : 1;
   const color = style.shadowColor || style.textShadowColor || DEFAULT_SHADOW_COLOR;
   const radius =
     style.shadowRadius !== undefined
       ? style.shadowRadius
       : style.textShadowRadius !== undefined
-        ? style.textShadowRadius
-        : 1;
+      ? style.textShadowRadius
+      : 1;
   const _class = style.shadowInner !== undefined ? 'innerShadow' : 'shadow';
   const spread =
     style.shadowSpread !== undefined
       ? style.shadowSpread
       : style.textShadowSpread !== undefined
-        ? style.textShadowSpread
-        : 1;
+      ? style.textShadowSpread
+      : 1;
   const { width: offsetX = 0, height: offsetY = 0 } =
     style.shadowOffset || style.textShadowOffset || {};
 

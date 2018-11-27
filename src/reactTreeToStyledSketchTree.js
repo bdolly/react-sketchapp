@@ -1,3 +1,4 @@
+/* edslint-disable */
 import htmlTagsMap from './utils/htmlTagsMap';
 import { INHERITABLE_FONT_STYLES } from './utils/constants';
 import { find, flatten, has, isObject, pick, omit } from 'lodash';
@@ -38,7 +39,7 @@ const convertHTMLInnerTextToSketchNode = tree => {
           children: [
             {
               type: 'text',
-              props: { style },
+              props: { style: { ...style, width: '100%' } },
               children: [node.children[0]],
             },
           ],
@@ -77,7 +78,7 @@ const hydrateTreeWithStyleProps = (tree, globalStyles) => {
         //    getting all the styles associated with the css classes
 
         // remove the overflow property as is causes sketch to mask all the layers
-        let compStyles = omit(getComponentStyles(node, globalStyles), ['overflow']);
+        let compStyles = omit(getComponentStyles(node, globalStyles, this), ['overflow']);
 
         // FINALLY
         //  update the node style props with the compiled styles

@@ -47,11 +47,18 @@ export default class ViewRenderer extends SketchRenderer {
     let layers = [];
     // NOTE(lmr): the group handles the position, so we just care about width/height here
     const {
-      borderTopLeftRadius = 0,
-      borderTopRightRadius = 0,
-      borderBottomRightRadius = 0,
-      borderBottomLeftRadius = 0,
+      borderTopLeftRadius = style?.borderTopLeftRadius || style?.borderRadius || 0,
+      borderTopRightRadius = style?.borderTopRightRadius || style?.borderRadius || 0,
+      borderBottomRightRadius = style?.borderBottomRightRadius || style?.borderRadius || 0,
+      borderBottomLeftRadius = style?.borderBottomLeftRadius || style?.borderRadius || 0,
     } = style;
+
+    // const {
+    //   borderTopLeftRadius = 0,
+    //   borderTopRightRadius = 0,
+    //   borderBottomRightRadius = 0,
+    //   borderBottomLeftRadius = 0,
+    // } = style;
 
     if (!hasAnyDefined(style, VISIBLE_STYLES)) {
       return layers;
@@ -89,6 +96,7 @@ export default class ViewRenderer extends SketchRenderer {
     }
 
     const contents = createBorders(content, layout, style);
+    // logJSON(contents);
 
     layers = layers.concat(contents);
 

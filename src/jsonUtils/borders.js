@@ -22,20 +22,20 @@ export const createBorders = (
   }
 
   const {
-    borderTopWidth = 0,
-    borderRightWidth = 0,
-    borderBottomWidth = 0,
-    borderLeftWidth = 0,
+    borderTopWidth = style?.borderWidth || 0,
+    borderRightWidth = style?.borderWidth || 0,
+    borderBottomWidth = style?.borderWidth || 0,
+    borderLeftWidth = style?.borderWidth || 0,
 
-    borderTopColor = DEFAULT_BORDER_COLOR,
-    borderRightColor = DEFAULT_BORDER_COLOR,
-    borderBottomColor = DEFAULT_BORDER_COLOR,
-    borderLeftColor = DEFAULT_BORDER_COLOR,
+    borderTopColor = style?.borderColor || DEFAULT_BORDER_COLOR,
+    borderRightColor = style?.borderColor || DEFAULT_BORDER_COLOR,
+    borderBottomColor = style?.borderColor || DEFAULT_BORDER_COLOR,
+    borderLeftColor = style?.borderColor || DEFAULT_BORDER_COLOR,
 
-    borderTopStyle = DEFAULT_BORDER_STYLE,
-    borderRightStyle = DEFAULT_BORDER_STYLE,
-    borderBottomStyle = DEFAULT_BORDER_STYLE,
-    borderLeftStyle = DEFAULT_BORDER_STYLE,
+    borderTopStyle = style?.borderStyle || DEFAULT_BORDER_STYLE,
+    borderRightStyle = style?.borderStyle || DEFAULT_BORDER_STYLE,
+    borderBottomStyle = style?.borderStyle || DEFAULT_BORDER_STYLE,
+    borderLeftStyle = style?.borderStyle || DEFAULT_BORDER_STYLE,
   } = style;
 
   if (
