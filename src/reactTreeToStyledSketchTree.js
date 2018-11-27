@@ -27,7 +27,7 @@ const convertHTMLInnerTextToSketchNode = tree => {
     const isTextNode: Boolean = nodeHas(node, ['type']) && node.type == 'text';
 
     const nodeHasInnerTextChildren: Boolean =
-      nodeHas(node, ['children']) && node.children.length && !node.children[0].type;
+      node && node.children && node.children.length && !node.children[0].type;
 
     if (!isTextNode && nodeHasInnerTextChildren) {
       const style = node.props.style ? pick(node.props.style, INHERITABLE_FONT_STYLES) : {};
@@ -37,7 +37,7 @@ const convertHTMLInnerTextToSketchNode = tree => {
           children: [
             {
               type: 'text',
-              props: { style: { ...style, minWidth: 60 } },
+              props: { style: { ...style } },
               children: [node.children[0]],
             },
           ],
@@ -104,6 +104,7 @@ export const ReactTreeToStyledSketchTree = (tree: ReactNode, globalStyles: any =
   const reactTree = tree;
   const styles = globalStyles;
   const treeWithStyleProps = hydrateTreeWithStyleProps(reactTree, styles);
+  logJSON(treeWithStyleProps);
   const treeWithTextNodes = convertHTMLInnerTextToSketchNode(treeWithStyleProps);
   const StyledSketchTree = convertTreeToSketchComponents(treeWithTextNodes);
   return StyledSketchTree;
