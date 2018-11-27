@@ -1,6 +1,11 @@
 // w3c.github.io/html-reference/elements-by-function.html
 // github.com/sindresorhus/html-tags
 
+type HTMLTagMapping = {
+    html: String,
+    sketchComponent: String,
+};
+
 // sorted by sketch renderers
 const htmlTagsMap = {
     BLACKLIST: [
@@ -127,5 +132,12 @@ const htmlTagsMap = {
     ],
     svg: ['svg'],
 };
+
+export const HTML2SketchComponentsMap: Array<HTMLTagMapping> = [];
+Object.keys(htmlTagsMap).forEach((sketchComponent: String) => {
+    HTML2SketchComponentsMap.push(
+        ...htmlTagsMap[sketchComponent].map(tag => ({ html: tag, sketchComponent })),
+    );
+});
 
 export default htmlTagsMap;

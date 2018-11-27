@@ -40,6 +40,7 @@
     "watch": "npm run build:react -- --watch"
   },
   "dependencies": {
+    "@babel/plugin-proposal-export-default-from": "^7.0.0",
     "@babel/plugin-proposal-optional-chaining": "^7.0.0",
     "@skpm/sketchapp-json-plugin": "^0.2.0",
     "airbnb-prop-types": "^2.10.0",
